@@ -308,9 +308,16 @@ let person=[
 
 // 1) display/print person yang registered dibawah tahun 2022
 console.log("-------------No 1--------------")
+// menggunakan method filter
 console.log(person.filter(x=>{
         return parseInt(x.registered.substring(0, 4)) < 2022
       }))
+// menggunakan perulangan
+for(let i=0; i<person.length; i++){
+  if(person[i].registered.substring(0, 4)<2022){
+    console.log(person[i])
+  }
+}
 
 // 2) display person yang address nya Bali
 console.log("-------------No 2--------------")
@@ -321,6 +328,15 @@ console.log(filterAddress)
 
 // 3) display friends yang hobby nya football
 console.log("-------------No 3--------------")
+// menggunakan array method
+console.log("--------No3-------")
+let filterHobby = person.filter(x => {
+  return x.friends.filter(y => {
+    return y.hobby === "football"
+  })
+})
+// menggunakan for
+console.log(filterHobby)
 for(let i=0; i<person.length; i++){
   for(let j=0; j<person[i].friends.length; j++){
     for(let k=0;k<person[i].friends[j].hobby.length; k++){
@@ -342,25 +358,42 @@ console.log(filterId)
 
 // 5) display friends yang gender nya male dan mempunya hobby basketball
 console.log("-------------No 5--------------")
-let filterFriends = person.filter(x=>{
-  return x.friends.filter(y=>{
-      return y.gender==="male" && y.hobby==="basketball"
+let filterFriends = person.map(x=>{
+  // console.log(x)
+  return x.friends.filter(function checkGender(y) {
+    // console.log(y)
+      if(y.gender==="male") {
+        return y.hobby.filter(function checkHoby(data) {
+          // console.log(hobby.hobby === "basketball")
+          return data.hobby === "basketball"
+        })
+      }
   })
 })
+
 console.log(filterFriends)
+
+for(let i=0; i<filterFriends.length; i++){
+  // console.log(filterFriends[i].hobby[1])
+  if(filterFriends[i].hobby === "basketball") {
+
+  }
+}
 
 // 6) display friends yang isActive nya true dan gender nya female dan favorite fruit nya strawberry
 console.log("-------------No 6--------------")
-// for (let i = 0; i < person.length; i++) {
-//   for (let j = 0; j < person[i].friends.length; j++) {
-//       if (person[i].friends[j].isActive === true){
-//           if(person[i].friends[j].gender === "female" && person[i].friends[j].favoriteFruit === "strawberry"){
-//               console.log(person[i].friends[j])
-//           }
-//       }
-//   }
-// }
-let filterNo6 = person.map(x => {
+// menggunakan for
+for (let i = 0; i < person.length; i++) {
+  for (let j = 0; j < person[i].friends.length; j++) {
+      if (person[i].friends[j].isActive === true){
+          if(person[i].friends[j].gender === "female" && person[i].friends[j].favoriteFruit === "strawberry"){
+              console.log(person[i].friends[j])
+          }
+      }
+  }
+}
+// menggunakan filter
+let filterNo6 = person.filter(x => {
   return x.friends.filter(y => {
       if (y.gender === "female") {
           return y.isActive === true && y.favoriteFruit === "strawberry"
@@ -377,6 +410,7 @@ let filterFriend = person.filter(x=>{
     })
   })
   console.log(filterFriend)
+
 // 8) display hobby id 1 dari friends yang isActive nya true
 console.log("-------------No 8--------------")
 let filterNo8 = person.filter(x => {
@@ -385,5 +419,33 @@ let filterNo8 = person.filter(x => {
   })
 })
 console.log(filterNo8)
+
 // 9) display person yang eye color nya brown dan favorite fruit nya banana dan mempunyai teman hobby basketball
+console.log("-------------No 9--------------")
+for (let i=0; i<person.length; i++) {
+  if (person[i].eyeColor==="brown") {
+    for (let j=0; j<person[i].friends.length; j++) {
+      if (person[i].friends[j].favoriteFruit==="banana") {
+        for (let k=0; k<person[i].friends[j].hobby.length; k++) {
+          if (person[i].friends[j].hobby[k].hobby==="basketball") {
+            console.log(person[i])
+          }
+        }
+      } 
+    }
+  }else{
+    console.log("Data Kosong")
+  }
+}
+
 // 10) display person yang mempunya friends gender male atau favorite fruit nya banana dan registered di tahun 2023
+console.log("-------------No 10--------------")
+for (let i=0; i<person.length; i++) {
+  for(let j=0; j<person[i].friends.length; j++){
+    if(person[i].registered="2023"){
+      if(person[i].friends[j].gender==="male" || person[i].friends[j].favoriteFruit==="banana"){
+        console.log(person[i])
+      }
+    }
+  }  
+}
